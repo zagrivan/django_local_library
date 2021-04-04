@@ -157,3 +157,4 @@ class BookInstUpdate(PermissionRequiredMixin, UpdateView):
     model = BookInstance
     permission_required = 'catalog.can_mark_returned'
     fields = ['book', 'imprint', 'language', 'due_back', 'borrower', 'status']
+    success_url = reverse_lazy('all-borrowed')
