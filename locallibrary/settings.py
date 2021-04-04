@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'lrwj^ik-^6kofruo2t(9a$xbf83$xf
 DEBUG = bool( os.environ.get( 'DJANGO_DEBUG', True ) )
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["fast-savannah-54593.herokuapp.com"]
 
 
 # Application definition
