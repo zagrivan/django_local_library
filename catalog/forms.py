@@ -44,6 +44,6 @@ class RenewBookForm(ModelForm):
 
     class Meta:
         model = BookInstance
-        fields = ['due_back',]
+        fields = ['due_back', 'borrower']
         labels = { 'due_back': _('renewal date'), }
         help_texts = { 'due_back': _('Enter a date between now and 4 weeks (default 3).'), } 

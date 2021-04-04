@@ -94,6 +94,7 @@ def renew_book_librarian(request, pk):
         if form.is_valid():
             # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
             book_inst.due_back = form.cleaned_data['due_back']
+            book_inst.borrower = form.cleaned_data['borrower']
             book_inst.save()
 
             # redirect to a new URL:
@@ -102,7 +103,7 @@ def renew_book_librarian(request, pk):
     # If this is a GET (or any other method) create the default form.
     else:
         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
-        form = RenewBookForm(initial={'due_back': proposed_renewal_date,})
+        form = RenewBookForm(initial={'due_back': proposed_renewal_date, 'borrower': book_inst.borrower})
 
     return render(request, 'catalog/book_renew_librarian.html', {'form': form, 'bookinst':book_inst})
 
@@ -142,3 +143,17 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
     model = Book
     permission_required = 'catalog.can_mark_returned'
     success_url = reverse_lazy('books')
+
+
+class BookInstCreate(PermissionRequiredMixin, CreateView):
+    model = BookInstance
+    permission_required = 'catalog.can_mark_returned'
+    fields = ['book', 'imprint', 'language', ]
+    initial = {'imprint':"I don't know."}
+    success_url = reverse_lazy('books')
+
+
+class BookInstUpdate(PermissionRequiredMixin, UpdateView):
+    model = BookInstance
+    permission_required = 'catalog.can_mark_returned'
+    fields = ['book', 'imprint', 'language', 'due_back', 'borrower', 'status']

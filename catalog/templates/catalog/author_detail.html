@@ -7,7 +7,11 @@
   <p><strong>Date of birth:</strong> {{ author.date_of_birth }}</p>
   {% if author.date_of_death %}
     <p><strong>Date of death:</strong> {{ author.date_of_death }}</p>
-  {% endif %} 
+  {% endif %}
+
+  {% if perms.catalog.can_mark_returned %}
+    <p><a href="{% url 'author-update' author.pk %}">Update</a> or <a href="{% url 'author-delete' author.pk %}">Delete</a> author</p>
+  {% endif %}
  
   <div style="margin-left:20px;margin-top:20px">
     <h4>Books</h4>
@@ -20,5 +24,5 @@
     {% endfor %}
   </div>
 
-  <p><a href="{% url 'author-update' author.pk %}">Update</a> or <a href="{% url 'author-delete' author.pk %}">Delete</a></p>
+  
 {% endblock %}
